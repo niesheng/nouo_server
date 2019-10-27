@@ -10,3 +10,13 @@
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
+.vscode/settings.json
+.vscode/sft.ytf.json
+.vscode/sftp.json
+.vscode/sftp.local.json
+.vscode/sftp.rasbian.json
+.gitignore
+cert/app.cer
+cert/app.crt
+cert/app.key
+config.json

@@ -1,0 +1,16 @@
+{
+  "postgres": {
+    "host": "127.0.0.1",
+    "port": "5432",
+    "username": "postgres",
+    "password": "postgres",
+    "database": "nouo",
+    "admin":"postgres"
+  },
+  "ssl": true,
+  "cert": "./cert/ssl.cer",
+  "key": "./cert/ssl.key",
+  "port": "443",
+  "upload": "./upload/",
+  "schema": "nouo"
+}

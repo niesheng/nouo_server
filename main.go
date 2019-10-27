@@ -1,13 +1,27 @@
 package main
 
-import "runtime"
+import (
+	"os"
+
+	"github.com/valyala/fasthttp"
+)
 
 func main() {
-	runtime.GOMAXPROCS(runtime.NumCPU())
-	// http.Handle("/", httpServer(Config_.Static))
-	// if Config_.Ssl {
-	// 	http.ListenAndServeTLS(":"+Config_.Port, Config_.Cert, Config_.Key, nil)
-	// } else {
-	// 	http.ListenAndServe(":"+Config_.Port, nil)
-	// }
+	// runtime.GOMAXPROCS(runtime.NumCPU())
+
+	if Config_.Ssl {
+		_, err := os.Stat(Config_.Cert)
+		if err != nil {
+			Exit(err) //power error
+		}
+		_, err = os.Stat(Config_.Key)
+		if err != nil {
+			Exit(err) //power error
+		}
+
+		fasthttp.ListenAndServeTLS(":"+Config_.Port, Config_.Cert, Config_.Key, fastHTTPHandler)
+	} else {
+		fasthttp.ListenAndServe(":"+Config_.Port, fastHTTPHandler)
+	}
+	select {}
 }
