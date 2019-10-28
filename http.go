@@ -24,7 +24,9 @@ func fastHTTPHandler(ctx *fasthttp.RequestCtx) {
 	ctx.Request.Header.VisitAll(fmtParams(headerMap))
 
 	request := webRequest{
-		Url:    string(ctx.RequestURI()),
+		Path:   string(ctx.Path()[1:]),
+		Host:   string(ctx.Host()),
+		Tls:    ctx.IsTLS(),
 		Method: string(ctx.Method()),
 		Get:    getMap,
 		Cookie: cookieMap,

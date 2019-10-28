@@ -10,7 +10,7 @@ import (
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 
-	if Config_.Ssl {
+	if Config_.Tls {
 		_, err := os.Stat(Config_.Cert)
 		if err != nil {
 			Exit(err) //power error

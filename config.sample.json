@@ -8,7 +8,7 @@
     "admin":"postgres",
     "router": "public.router"
   },
-  "ssl": true,
+  "tls": true,
   "cert": "./cert/ssl.cer",
   "key": "./cert/ssl.key",
   "port": "443",

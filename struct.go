@@ -2,7 +2,7 @@ package main
 
 type config struct {
 	Postgres postgresConfig `json:"postgres"` //postgresql's config
-	Ssl      bool           `json:"ssl"`      //is ssl
+	Tls      bool           `json:"tls"`      //tls
 	Cert     string         `json:"cert"`     //ssl certificate file
 	Key      string         `json:"key"`      //ssl certificate's key
 	Port     string         `json:"port"`     //listen port of the Nouo Web Server
@@ -20,7 +20,9 @@ type postgresConfig struct {
 }
 
 type webRequest struct {
-	Url    string                 `json:"url"`    //当前主机
+	Path   string                 `json:"path"`   //访问路径
+	Host   string                 `json:"host"`   //访问路径
+	Tls    bool                   `json:"tls"`    //访问路径
 	Ip     string                 `json:"ip"`     //客户端IP
 	Method string                 `json:"method"` //提交模式
 	Get    map[string]interface{} `json:"get"`    //用户传输的参数
