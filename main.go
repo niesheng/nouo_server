@@ -2,12 +2,13 @@ package main
 
 import (
 	"os"
+	"runtime"
 
 	"github.com/valyala/fasthttp"
 )
 
 func main() {
-	// runtime.GOMAXPROCS(runtime.NumCPU())
+	runtime.GOMAXPROCS(runtime.NumCPU())
 
 	if Config_.Ssl {
 		_, err := os.Stat(Config_.Cert)

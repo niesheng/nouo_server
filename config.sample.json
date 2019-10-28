@@ -5,12 +5,12 @@
     "username": "postgres",
     "password": "postgres",
     "database": "nouo",
-    "admin":"postgres"
+    "admin":"postgres",
+    "router": "public.router"
   },
   "ssl": true,
   "cert": "./cert/ssl.cer",
   "key": "./cert/ssl.key",
   "port": "443",
-  "upload": "./upload/",
-  "schema": "nouo"
+  "upload": "./upload/"
 }

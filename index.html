@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <html>
     <head>
+		<meta http-equiv='X-UA-Compatible' content='IE=edge' charset='UTF-8'>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <title>test</title>
         <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
     </head>
@@ -10,9 +12,10 @@
             <input type="text" name='ss' />
             <input type="radio" value="1" name="sex" />
             <input type="radio" value="2" name="sex" />
-            <input type="file" name='ff' />
+            <input type="file" name='ff' id="photo" />
             <input type="submit" />
         </form>
+        <input type="button" onclick="javascript:postData()" value="测试一哈" />
     </body>
     <script>
         function setCookie(name,value)
@@ -22,17 +25,19 @@
             exp.setTime(exp.getTime() + Days*30*24*60*60*1000);
             document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
         }
-        $(function(){
+        function postData(){
+            var formData = new FormData();
+            formData.append("photo",$("#photo")[0].files[0]);
             $.ajax({
-                url:"/test",
-                method:"post",
-                data:{test:1},
-                success:function(data){
-                    console.log(data);
+                url:'/remote?getParam=success', /*接口域名地址*/
+                type:'post',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success:function(res){
+                    console.log(res);
                 }
-            });
-            setCookie('the_cookie', 'the_value');
-        });
-
+            })
+        }
     </script>
 </html>

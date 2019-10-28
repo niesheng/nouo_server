@@ -2,8 +2,8 @@
 package main
 
 import (
+	"database/sql"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"os"
 	"os/user"
@@ -13,6 +13,8 @@ import (
 var Uid_ int
 var Gid_ int
 var Config_ config
+
+var db *sql.DB
 
 func init() {
 	//load config
@@ -56,5 +58,10 @@ func init() {
 	if err != nil {
 		Exit(err)
 	}
-	fmt.Println(Config_)
+	//使用数据库连接池
+	ConnectString := "user=" + Config_.Postgres.Username + " password=" + Config_.Postgres.Password + " host=" + Config_.Postgres.Host + " port=" + Config_.Postgres.Port + " dbname=" + Config_.Postgres.Database + " sslmode=disable"
+	db, _ = sql.Open("postgres", ConnectString)
+	db.SetConnMaxLifetime(3600000)
+	db.SetMaxIdleConns(100)
+	db.SetMaxOpenConns(100)
 }
