@@ -12,19 +12,8 @@ import (
 )
 
 func fastHTTPHandler(ctx *fasthttp.RequestCtx) {
-	ctx.Response.Header.Set("server", "Nouo Web Server")
+	ctx.Response.Header.Set("server", "Nouo Web Router")
 	ctx.Response.Header.Set("version", "0.1.1")
-
-	if string(ctx.RequestURI()) == "/index.html" {
-		b, err := ioutil.ReadFile("index.html")
-		if err != nil {
-			Exit(err)
-		}
-		ctx.SetContentType("text/html")
-		ctx.SetStatusCode(fasthttp.StatusOK)
-		ctx.SetBody(b)
-		return
-	}
 
 	getMap := make(map[string]interface{})
 	cookieMap := make(map[string]interface{})
@@ -33,8 +22,6 @@ func fastHTTPHandler(ctx *fasthttp.RequestCtx) {
 	ctx.QueryArgs().VisitAll(fmtParams(getMap))
 	ctx.Request.Header.VisitAllCookie(fmtParams(cookieMap))
 	ctx.Request.Header.VisitAll(fmtParams(headerMap))
-
-	// ctx.Form
 
 	request := webRequest{
 		Url:    string(ctx.RequestURI()),
