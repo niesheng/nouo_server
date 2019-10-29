@@ -49,7 +49,15 @@ func router_handle(ctx *fasthttp.RequestCtx) {
 	}
 
 	s, code := sql_router(request)
-	ctx.SetStatusCode(code)
+	if s.Status == 0 {
+		s.Status = code
+	}
+	ctx.SetStatusCode(s.Status)
+
+	if s.Status != 200 {
+		ctx.SetBodyString(s.Body)
+		return
+	}
 
 	for k, v := range s.Header {
 		if reflect.TypeOf(v).String() != "string" {

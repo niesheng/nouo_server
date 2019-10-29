@@ -49,6 +49,7 @@ type webFile struct {
 }
 
 type webResponse struct {
+	Status int                    `json:"status"` //返回页面状态码
 	Body   string                 `json:"body"`   //返回页面内容
 	Header map[string]interface{} `json:"header"` //返回页面头
 	Cookie map[string]interface{} `json:"cookie"` //返回cookie
