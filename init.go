@@ -2,19 +2,22 @@
 package main
 
 import (
-	"encoding/json"
 	"io/ioutil"
 	"os"
 	"os/user"
 	"strconv"
+
+	jsoniter "github.com/json-iterator/go"
 )
 
 var Uid_ int
 var Gid_ int
 var Config_ config
 
-func init() {
+var json jsoniter.API
 
+func init() {
+	json = jsoniter.ConfigCompatibleWithStandardLibrary
 	//load config
 
 	if len(os.Args) != 2 {
