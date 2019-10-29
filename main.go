@@ -10,19 +10,20 @@ import (
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 
-	if Config_.Tls {
-		_, err := os.Stat(Config_.Cert)
+	if Config_.Server.Tls {
+		_, err := os.Stat(Config_.Server.Cert)
 		if err != nil {
 			Exit(err) //power error
 		}
-		_, err = os.Stat(Config_.Key)
+		_, err = os.Stat(Config_.Server.Key)
 		if err != nil {
 			Exit(err) //power error
 		}
 
-		fasthttp.ListenAndServeTLS(":"+Config_.Port, Config_.Cert, Config_.Key, fastHTTPHandler)
+		fasthttp.ListenAndServeTLS(":"+Config_.Server.Port, Config_.Server.Cert, Config_.Server.Key, router_handle)
 	} else {
-		fasthttp.ListenAndServe(":"+Config_.Port, fastHTTPHandler)
+		fasthttp.ListenAndServe(":"+Config_.Server.Port, router_handle)
 	}
+
 	select {}
 }

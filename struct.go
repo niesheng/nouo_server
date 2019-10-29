@@ -2,11 +2,20 @@ package main
 
 type config struct {
 	Postgres postgresConfig `json:"postgres"` //postgresql's config
-	Tls      bool           `json:"tls"`      //tls
-	Cert     string         `json:"cert"`     //ssl certificate file
-	Key      string         `json:"key"`      //ssl certificate's key
-	Port     string         `json:"port"`     //listen port of the Nouo Web Server
-	Upload   string         `json:"upload"`   //upload folder of the Nouo Web Server
+	Server   serverConfig   `json:"server"`   //server's config
+}
+
+type serverConfig struct {
+	Tls    bool         `json:"tls"`    //tls
+	Cert   string       `json:"cert"`   //ssl certificate file
+	Key    string       `json:"key"`    //ssl certificate's key
+	Port   string       `json:"port"`   //listen port of the Nouo Web Server
+	Upload uploadConfig `json:"upload"` //upload folder of the Nouo Web Server
+}
+
+type uploadConfig struct {
+	Path   string   `json:"path"`
+	Access []string `json:"access"`
 }
 
 type postgresConfig struct {
@@ -36,6 +45,7 @@ type webFile struct {
 	Name string `json:"name"` //文件名
 	Size int64  `json:"size"` //文件大小
 	Path string `json:"path"` //文件路径
+	Type string `json:"Type"` //文件类型
 }
 
 type webResponse struct {

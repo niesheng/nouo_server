@@ -8,9 +8,14 @@
     "admin":"postgres",
     "router": "public.router"
   },
-  "tls": true,
-  "cert": "./cert/ssl.cer",
-  "key": "./cert/ssl.key",
-  "port": "443",
-  "upload": "./upload/"
+  "server":{
+    "tls": true,
+    "cert": "./cert/ssl.cer",
+    "key": "./cert/ssl.key",
+    "port": "443",
+    "upload": {
+      "path":"./upload/",
+      "access":["jpg","gif","png"]
+    }
+  }
 }

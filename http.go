@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"mime/multipart"
 	"os"
@@ -11,7 +12,7 @@ import (
 	"github.com/valyala/fasthttp"
 )
 
-func fastHTTPHandler(ctx *fasthttp.RequestCtx) {
+func router_handle(ctx *fasthttp.RequestCtx) {
 	ctx.Response.Header.Set("server", "Nouo Web Router")
 	ctx.Response.Header.Set("version", "0.1.1")
 
@@ -46,10 +47,10 @@ func fastHTTPHandler(ctx *fasthttp.RequestCtx) {
 			request.Files = file_handle(form.File)
 		}
 	}
-	//to postgresql
+
 	s, code := sql_router(request)
 	ctx.SetStatusCode(code)
-	ctx.SetBodyString(s.Body)
+
 	for k, v := range s.Header {
 		if reflect.TypeOf(v).String() != "string" {
 			val, err := json.Marshal(v)
@@ -61,6 +62,16 @@ func fastHTTPHandler(ctx *fasthttp.RequestCtx) {
 		} else {
 			ctx.Response.Header.Set(k, v.(string))
 		}
+	}
+
+	if s.File.Name == "" {
+		ctx.SetBodyString(s.Body)
+	} else {
+		f, err := os.Open(s.File.Path)
+		if err != nil {
+			Exit(err)
+		}
+		ctx.SetBodyStream(f, int(s.File.Size))
 	}
 	return
 }
@@ -75,14 +86,26 @@ func file_handle(mf map[string][]*multipart.FileHeader) map[string]interface{} {
 				//error log
 				break
 			}
-			truePath := Config_.Upload + value[i].Filename
+			truePath := Config_.Server.Upload.Path + value[i].Filename
 			b, _ := ioutil.ReadAll(s)
-			ioutil.WriteFile(truePath, b, 644)
-			os.Chown(truePath, Uid_, Gid_)
-			vfiles[i] = webFile{
-				Path: truePath,
-				Size: value[i].Size,
-				Name: value[i].Filename,
+			acc := false
+			fmt.Println(value[i].Filename)
+
+			for _, v := range Config_.Server.Upload.Access {
+				fmt.Println(v + " - " + GetFileType(b[:10]))
+
+				if GetFileType(b[:10]) == v {
+					acc = true
+				}
+			}
+			if acc {
+				ioutil.WriteFile(truePath, b, 644)
+				os.Chown(truePath, Uid_, Gid_)
+				vfiles[i] = webFile{
+					Path: truePath,
+					Size: value[i].Size,
+					Name: value[i].Filename,
+				}
 			}
 		}
 		if len(vfiles) == 1 {
