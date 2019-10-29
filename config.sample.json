@@ -15,7 +15,7 @@
     "port": "443",
     "upload": {
       "path":"./upload/",
-      "access":["jpg","gif","png"]
+      "allow":["jpg","gif","png"]
     }
   }
 }

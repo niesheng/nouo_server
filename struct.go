@@ -14,8 +14,8 @@ type serverConfig struct {
 }
 
 type uploadConfig struct {
-	Path   string   `json:"path"`
-	Access []string `json:"access"`
+	Path  string   `json:"path"`
+	Allow []string `json:"allow"`
 }
 
 type postgresConfig struct {

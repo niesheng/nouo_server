@@ -41,7 +41,7 @@ func init() {
 	}
 	init_file_type()
 
-	for _, v := range Config_.Server.Upload.Access {
+	for _, v := range Config_.Server.Upload.Allow {
 		s := false
 		FileType_.Range(func(_, val interface{}) bool {
 			vv := val.(string)

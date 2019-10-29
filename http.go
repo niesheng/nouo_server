@@ -91,7 +91,7 @@ func file_handle(mf map[string][]*multipart.FileHeader) map[string]interface{} {
 			acc := false
 			fmt.Println(value[i].Filename)
 
-			for _, v := range Config_.Server.Upload.Access {
+			for _, v := range Config_.Server.Upload.Allow {
 				fmt.Println(v + " - " + GetFileType(b[:10]))
 
 				if GetFileType(b[:10]) == v {
