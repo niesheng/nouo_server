@@ -10,7 +10,7 @@ type config struct {
 }
 
 type postgresConfig struct {
-	Host     string `json:"host"`     //host's ip of postgresql's server
+	Server   string `json:"server"`   //host's ip of postgresql's server
 	Port     string `json:"port"`     //listsen's port of the postgresql's server
 	Username string `json:"username"` //username of the postgresql's server
 	Password string `json:"password"` //password

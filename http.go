@@ -80,7 +80,7 @@ func file_handle(mf map[string][]*multipart.FileHeader) map[string]interface{} {
 			ioutil.WriteFile(truePath, b, 644)
 			os.Chown(truePath, Uid_, Gid_)
 			vfiles[i] = webFile{
-				Path: value[i].Filename,
+				Path: truePath,
 				Size: value[i].Size,
 				Name: value[i].Filename,
 			}

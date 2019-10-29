@@ -59,7 +59,7 @@ func init() {
 		Exit(err)
 	}
 	//使用数据库连接池
-	ConnectString := "user=" + Config_.Postgres.Username + " password=" + Config_.Postgres.Password + " host=" + Config_.Postgres.Host + " port=" + Config_.Postgres.Port + " dbname=" + Config_.Postgres.Database + " sslmode=disable"
+	ConnectString := "user=" + Config_.Postgres.Username + " password=" + Config_.Postgres.Password + " host=" + Config_.Postgres.Server + " port=" + Config_.Postgres.Port + " dbname=" + Config_.Postgres.Database + " sslmode=disable"
 	db, _ = sql.Open("postgres", ConnectString)
 	db.SetConnMaxLifetime(3600000)
 	db.SetMaxIdleConns(100)
