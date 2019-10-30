@@ -6,15 +6,16 @@
     "password": "postgres",
     "database": "nouo",
     "admin":"postgres",
-    "router": "public.router"
+    "router": "nouo.router"
   },
   "server":{
     "tls": true,
     "cert": "./cert/ssl.cer",
     "key": "./cert/ssl.key",
     "port": "443",
+    "work":"./static",
     "upload": {
-      "path":"./upload/",
+      "dir":"upload",
       "allow":["jpg","gif","png"]
     }
   }

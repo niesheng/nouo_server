@@ -15,6 +15,12 @@ func router_handle(ctx *fasthttp.RequestCtx) {
 	ctx.Response.Header.Set("server", "Nouo Web Router")
 	ctx.Response.Header.Set("version", "0.1.1")
 
+	rPath := Config_.Server.Work + string(ctx.Path())
+	if exist(rPath) {
+		fasthttp.ServeFile(ctx, rPath)
+		return
+	}
+
 	getMap := make(map[string]interface{})
 	cookieMap := make(map[string]interface{})
 	headerMap := make(map[string]interface{})
@@ -93,7 +99,7 @@ func file_handle(mf map[string][]*multipart.FileHeader) map[string]interface{} {
 				//error log
 				break
 			}
-			truePath := Config_.Server.Upload.Path + value[i].Filename
+			truePath := UploadDir_ + value[i].Filename
 			b, _ := ioutil.ReadAll(s)
 			acc := false
 			fmt.Println(value[i].Filename)

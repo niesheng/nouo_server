@@ -10,11 +10,12 @@ type serverConfig struct {
 	Cert   string       `json:"cert"`   //ssl certificate file
 	Key    string       `json:"key"`    //ssl certificate's key
 	Port   string       `json:"port"`   //listen port of the Nouo Web Server
+	Work   string       `json:"work"`   //static file work
 	Upload uploadConfig `json:"upload"` //upload folder of the Nouo Web Server
 }
 
 type uploadConfig struct {
-	Path  string   `json:"path"`
+	Dir   string   `json:"dir"`
 	Allow []string `json:"allow"`
 }
 
@@ -30,8 +31,8 @@ type postgresConfig struct {
 
 type webRequest struct {
 	Path   string                 `json:"path"`   //访问路径
-	Host   string                 `json:"host"`   //访问路径
-	Tls    bool                   `json:"tls"`    //访问路径
+	Host   string                 `json:"host"`   //访问域
+	Tls    bool                   `json:"tls"`    //是否tls
 	Ip     string                 `json:"ip"`     //客户端IP
 	Method string                 `json:"method"` //提交模式
 	Get    map[string]interface{} `json:"get"`    //用户传输的参数

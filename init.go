@@ -13,6 +13,7 @@ import (
 var Uid_ int
 var Gid_ int
 var Config_ config
+var UploadDir_ string
 
 var json jsoniter.API
 
@@ -72,8 +73,9 @@ func init() {
 	if err != nil {
 		Exit(err)
 	}
-	err = os.Mkdir(Config_.Server.Upload.Path, 644)
-	err = os.Chown(Config_.Server.Upload.Path, Uid_, Gid_)
+	UploadDir_ = Config_.Server.Work + "/" + Config_.Server.Upload.Dir + "/"
+	err = os.Mkdir(UploadDir_, 644)
+	err = os.Chown(UploadDir_, Uid_, Gid_)
 	if err != nil {
 		Exit(err)
 	}

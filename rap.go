@@ -10,6 +10,10 @@ func Exit(err interface{}) {
 	fmt.Println(err)
 	os.Exit(0)
 }
+func exist(path string) bool {
+	_, err := os.Stat(path)
+	return err == nil
+}
 
 func fmtParams(s map[string]interface{}) func(k, v []byte) {
 	return func(k, v []byte) {
