@@ -12,10 +12,16 @@ import (
 )
 
 func router_handle(ctx *fasthttp.RequestCtx) {
-	ctx.Response.Header.Set("server", "Nouo Web Router")
-	ctx.Response.Header.Set("version", "0.1.1")
+	ctx.Response.Header.Set("Server", Config_.Server.Name)
+	ctx.Response.Header.Set("Version", Config_.Server.Version)
 
-	rPath := Config_.Server.Work + string(ctx.Path())
+	url := string(ctx.Path())
+
+	if url == "/" {
+		url = "/index.html"
+	}
+	rPath := Config_.Server.Work + url
+
 	if exist(rPath) {
 		fasthttp.ServeFile(ctx, rPath)
 		return

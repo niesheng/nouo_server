@@ -9,6 +9,8 @@
     "router": "nouo.router"
   },
   "server":{
+    "name":"Nouo Web Server",
+    "version":"0.1.1",
     "tls": true,
     "cert": "./cert/ssl.cer",
     "key": "./cert/ssl.key",

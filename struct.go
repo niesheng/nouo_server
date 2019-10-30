@@ -6,12 +6,14 @@ type config struct {
 }
 
 type serverConfig struct {
-	Tls    bool         `json:"tls"`    //tls
-	Cert   string       `json:"cert"`   //ssl certificate file
-	Key    string       `json:"key"`    //ssl certificate's key
-	Port   string       `json:"port"`   //listen port of the Nouo Web Server
-	Work   string       `json:"work"`   //static file work
-	Upload uploadConfig `json:"upload"` //upload folder of the Nouo Web Server
+	Name    string       `json:"name"`    //server's name
+	Version string       `json:"version"` //server's version
+	Tls     bool         `json:"tls"`     //tls
+	Cert    string       `json:"cert"`    //ssl certificate file
+	Key     string       `json:"key"`     //ssl certificate's key
+	Port    string       `json:"port"`    //listen port of the Nouo Web Server
+	Work    string       `json:"work"`    //static file work
+	Upload  uploadConfig `json:"upload"`  //upload folder of the Nouo Web Server
 }
 
 type uploadConfig struct {
